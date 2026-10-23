@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>संस्कृत व्याकरण अभ्यास - Shabd, Dhatu & Syllabus</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        sanskrit: ['"Tiro Devanagari Sanskrit"', 'serif'],
+                    },
+                    colors: {
+                        saffron: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                        },
+                        amberGold: {
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fffbeb 0%, #ffedd5 50%, #fed7aa 100%);
+            min-height: 100vh;
+        }
+        .sanskrit-text {
+            font-family: 'Tiro Devanagari Sanskrit', serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- App Container -->
+    <div class="max-w-6xl mx-auto px-4 py-6 md:py-10">
+        
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 mb-8 border border-saffron-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 bg-gradient-to-tr from-saffron-600 to-amberGold-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg sanskrit-text">
+                    ॐ
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-saffron-800 sanskrit-text">संस्कृत अभ्यासः (पाठ्यक्रम)</h1>
+                    <p class="text-sm text-slate-600 font-medium">शब्द रूप, धातु रूप (लोट् लकार), संख्या एवं साहित्य</p>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="flex items-center gap-3 bg-saffron-50 px-4 py-2.5 rounded-xl border border-saffron-200">
+                <div class="flex items-center gap-1.5 text-saffron-700 font-semibold text-sm">
+                    <span>🏆 स्कोर:</span>
+                    <span id="score-val" class="text-lg font-bold">0</span>
+                </div>
+                <div class="w-px h-6 bg-saffron-300"></div>
+                <div class="flex items-center gap-1.5 text-amber-700 font-semibold text-sm">
+                    <span>🔥 स्ट्रीक:</span>
+                    <span id="streak-val" class="text-lg font-bold">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap gap-2 mb-8 bg-white/60 backdrop-blur p-2 rounded-2xl shadow-sm border border-saffron-100 justify-center md:justify-start">
+            <button onclick="switchTab('shabd')" id="btn-shabd" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-saffron-600 text-white shadow-md">
+                📖 शब्द रूप
+            </button>
+            <button onclick="switchTab('dhatu')" id="btn-dhatu" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-white text-slate-700 hover:bg-saffron-50">
+                ⚡ धातु रूप
+            </button>
+            <button onclick="switchTab('sankhya')" id="btn-sankhya" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-white text-slate-700 hover:bg-saffron-50">
+                🔢 संख्या (1-35)
+            </button>
+            <button onclick="switchTab('literature')" id="btn-literature" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-white text-slate-700 hover:bg-saffron-50">
+                📚 साहित्य / पाठ
+            </button>
+            <button onclick="switchTab('quiz')" id="btn-quiz" class="flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-white text-slate-700 hover:bg-saffron-50">
+                🎯 सारणी परीक्षा (Table Fill-ups)
+            </button>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main>
+
+            <!-- ================= SHABD ROOP SECTION ================= -->
+            <div id="tab-shabd" class="space-y-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-saffron-100">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-slate-100">
+                        <div>
+                            <h2 class="text-xl font-bold text-saffron-800 sanskrit-text">शब्द रूप परिचय</h2>
+                            <p class="text-sm text-slate-500">पाठ्यक्रम: <span class="font-semibold text-slate-700">लता (स्त्रीलिंग आकारांत)</span> तथा <span class="font-semibold text-slate-700">बालक (पुंलिंग अकारांत)</span></p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="selectShabd('lata')" id="shabd-btn-lata" class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-saffron-600 text-white shadow-sm transition-all">लता (स्त्रीलिंग)</button>
+                            <button onclick="selectShabd('balak')" id="shabd-btn-balak" class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all">बालक (पुंलिंग)</button>
+                        </div>
+                    </div>
+
+                    <div id="shabd-table-container" class="overflow-x-auto">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= DHATU ROOP SECTION ================= -->
+            <div id="tab-dhatu" class="hidden space-y-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-saffron-100">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-slate-100">
+                        <div>
+                            <h2 class="text-xl font-bold text-saffron-800 sanskrit-text">धातु रूप (लोट् लकार - Imperative Mood)</h2>
+                            <p class="text-sm text-slate-500">पाठ्यक्रम: <span class="font-semibold text-slate-700">पठ्</span>, <span class="font-semibold text-slate-700">लिख्</span>, और <span class="font-semibold text-slate-700">क्रीड्</span></p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="selectDhatu('path')" id="dhatu-btn-path" class="px-4 py-2.5 rounded-xl font-semibold text-sm bg-saffron-600 text-white shadow-sm transition-all">पठ्</button>
+                            <button onclick="selectDhatu('likh')" id="dhatu-btn-likh" class="px-4 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all">लिख्</button>
+                            <button onclick="selectDhatu('kreed')" id="dhatu-btn-kreed" class="px-4 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all">क्रीड्</button>
+                        </div>
+                    </div>
+
+                    <div id="dhatu-table-container" class="overflow-x-auto">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SANKHYA SECTION ================= -->
+            <div id="tab-sankhya" class="hidden space-y-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-saffron-100">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-slate-100">
+                        <div>
+                            <h2 class="text-xl font-bold text-saffron-800 sanskrit-text">संख्या (Numbers 1 से 35 तक)</h2>
+                            <p class="text-sm text-slate-500">पाठ्यक्रमानुसार संस्कृत गिनती</p>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <input type="text" id="sankhya-search" oninput="filterSankhya()" placeholder="संख्या खोजें (उदा. 15)..." class="px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-saffron-500 w-full md:w-64">
+                        </div>
+                    </div>
+                    <div id="sankhya-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= LITERATURE SECTION ================= -->
+            <div id="tab-literature" class="hidden space-y-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-xl p-6 border border-saffron-100 space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-saffron-800 sanskrit-text mb-1">साहित्य - पाठ पाठ्यक्रम</h2>
+                        <p class="text-sm text-slate-500">पाठ्यक्रम में निर्धारित पाठों के मुख्य बिंदु एवं शब्दार्थ:</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-saffron-50/60 p-5 rounded-2xl border border-saffron-200 space-y-3">
+                            <h3 class="font-bold text-saffron-900 text-lg sanskrit-text">📖 सूराः वयं धीराः वयं</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">यह पाठ वीरता, साहस और आत्मबल पर आधारित है। इसमें छात्रों को वीर, धीर और साहसी बनने की प्रेरणा दी गई है।</p>
+                            <div class="text-xs font-semibold text-saffron-800 bg-white/80 p-3 rounded-xl border border-saffron-100">
+                                मुख्य शब्दार्थ: सूरः = वीर, धीरः = धैर्यवान्, वयम् = हम सब।
+                            </div>
+                        </div>
+                        <div class="bg-saffron-50/60 p-5 rounded-2xl border border-saffron-200 space-y-3">
+                            <h3 class="font-bold text-saffron-900 text-lg sanskrit-text">🎨 सः एव एक महान् चित्रकारः</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">यह पाठ कला और प्रकृति या एक प्रसिद्ध चित्रकार के जीवन/कृतित्व पर आधारित वर्णनात्मक पाठ है।</p>
+                            <div class="text-xs font-semibold text-saffron-800 bg-white/80 p-3 rounded-xl border border-saffron-100">
+                                मुख्य शब्दार्थ: महान् = बहुत बड़ा, चित्रकारः = चित्र बनाने वाला, एव = ही।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TABLE FILL-UPS QUIZ SECTION ================= -->
+            <div id="tab-quiz" class="hidden space-y-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-saffron-100 max-w-4xl mx-auto">
+                    
+                    <!-- Quiz Selector Menu -->
+                    <div id="quiz-menu-screen" class="text-center py-6 space-y-6">
+                        <div class="w-20 h-20 bg-saffron-100 text-saffron-600 rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-inner">
+                            📝
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-saffron-800 sanskrit-text mb-2">सारणी पूर्ति परीक्षा (Table Fill-ups Quiz)</h2>
+                            <p class="text-slate-600 max-w-md mx-auto text-sm">शब्द रूप एवं धातु रूप की पूरी सारणी में से कुछ पद गायब (Blank) होंगे। सही विकल्प चुनकर सारणी को पूरा करें!</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center gap-4 pt-2">
+                            <button onclick="startTableQuiz('lata')" class="px-6 py-3.5 bg-saffron-600 text-white font-semibold rounded-xl shadow-lg hover:bg-saffron-700 transition-all text-sm">
+                                📖 लता शब्द रूप टेस्ट
+                            </button>
+                            <button onclick="startTableQuiz('balak')" class="px-6 py-3.5 bg-saffron-600 text-white font-semibold rounded-xl shadow-lg hover:bg-saffron-700 transition-all text-sm">
+                                📖 बालक शब्द रूप टेस्ट
+                            </button>
+                            <button onclick="startTableQuiz('dhatu')" class="px-6 py-3.5 bg-gradient-to-r from-saffron-600 to-amberGold-500 text-white font-semibold rounded-xl shadow-lg hover:opacity-95 transition-all text-sm">
+                                ⚡ धातु रूप (लोट् लकार) टेस्ट
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Active Table Fill-up Screen -->
+                    <div id="quiz-active-screen" class="hidden space-y-6">
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                            <div>
+                                <span id="table-quiz-title" class="font-bold text-saffron-900 text-lg sanskrit-text">सारणी परीक्षण</span>
+                                <p class="text-xs text-slate-500">रिक्त स्थान में सही पद भरें या चुनें:</p>
+                            </div>
+                            <button onclick="exitTableQuiz()" class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-200">सूची पर लौटें</button>
+                        </div>
+
+                        <!-- Interactive Table Container -->
+                        <div id="table-quiz-container" class="overflow-x-auto">
+                            <!-- Populated by JS with inputs/dropdowns -->
+                        </div>
+
+                        <!-- Check Answers Button -->
+                        <div class="flex justify-between items-center pt-4">
+                            <div id="table-quiz-feedback" class="text-sm font-semibold"></div>
+                            <button onclick="evaluateTableQuiz()" id="check-table-btn" class="px-6 py-3 bg-saffron-600 text-white font-semibold rounded-xl shadow-md hover:bg-saffron-700 transition-all text-sm">
+                                उत्तर जाँचें ✅
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center gap-3 border border-slate-700">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg" class="text-sm font-medium">Message</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data Definitions
+        const shabdData = {
+            lata: {
+                name: "लता (स्त्रीलिंग - आकारांत)",
+                vibhaktis: [
+                    { name: "प्रथमा", ek: "लता", dvi: "लते", bahu: "लताः" },
+                    { name: "द्वितीया", ek: "लताम्", dvi: "लते", bahu: "लताः" },
+                    { name: "तृतीया", ek: "लतया", dvi: "लताभ्याम्", bahu: "लताभिः" },
+                    { name: "चतुर्थी", ek: "लतायै", dvi: "लताभ्याम्", bahu: "लताभ्यः" },
+                    { name: "पञ्चमी", ek: "लतायाः", dvi: "लताभ्याम्", bahu: "लताभ्यः" },
+                    { name: "षष्ठी", ek: "लतायाः", dvi: "लतयोः", bahu: "लतानाम्" },
+                    { name: "सप्तमी", ek: "लतायाम्", dvi: "लतयोः", bahu: "लतासु" },
+                    { name: "सम्बोधनम्", ek: "हे लते", dvi: "हे लते", bahu: "हे लताः" }
+                ]
+            },
+            balak: {
+                name: "बालक (पुंलिंग - अकारांत)",
+                vibhaktis: [
+                    { name: "प्रथमा", ek: "बालकः", dvi: "बालकौ", bahu: "बालकाः" },
+                    { name: "द्वितीया", ek: "बालकम्", dvi: "बालकौ", bahu: "बालकान्" },
+                    { name: "तृतीया", ek: "बालकेन", dvi: "बालकाभ्याम्", bahu: "बालकैः" },
+                    { name: "चतुर्थी", ek: "बालकाय", dvi: "बालकाभ्याम्", bahu: "बालकेभ्यः" },
+                    { name: "पञ्चमी", ek: "बालकात्", dvi: "बालकाभ्याम्", bahu: "बालकेभ्यः" },
+                    { name: "षष्ठी", ek: "बालकस्य", dvi: "बालकयोः", bahu: "बालकानाम्" },
+                    { name: "सप्तमी", ek: "बालके", dvi: "बालकयोः", bahu: "बालकेषु" },
+                    { name: "सम्बोधनम्", ek: "हे बालक", dvi: "हे बालकौ", bahu: "हे बालकाः" }
+                ]
+            }
+        };
+
+        const dhatuData = {
+            path: {
+                name: "पठ् धातु (लोट् लकार)",
+                purushas: [
+                    { name: "प्रथ्म पुरुषः", ek: "पठतु", dvi: "पठताम्", bahu: "पठन्तु" },
+                    { name: "मध्यम पुरुषः", ek: "पठ", dvi: "पठतम्", bahu: "पठत" },
+                    { name: "उत्तम पुरुषः", ek: "पठानि", dvi: "पठाव", bahu: "पठाम" }
+                ]
+            },
+            likh: {
+                name: "लिख् धातु (लोट् लकार)",
+                purushas: [
+                    { name: "प्रथ्म पुरुषः", ek: "लिखतु", dvi: "लिखताम्", bahu: "लिखन्तु" },
+                    { name: "मध्यम पुरुषः", ek: "लिख", dvi: "लिखतम्", bahu: "लिखत" },
+                    { name: "उत्तम पुरुषः", ek: "लिखानि", dvi: "लिखाव", bahu: "लिखाम" }
+                ]
+            },
+            kreed: {
+                name: "क्रीड् धातु (लोट् लकार)",
+                purushas: [
+                    { name: "प्रथ्म पुरुषः", ek: "क्रीडतु", dvi: "क्रीडताम्", bahu: "क्रीडन्तु" },
+                    { name: "मध्यम पुरुषः", ek: "क्रीड", dvi: "क्रीडतम्", bahu: "क्रीडत" },
+                    { name: "उत्तम पुरुषः", ek: "क्रीडानि", dvi: "क्रीडाव", bahu: "क्रीडाम" }
+                ]
+            }
+        };
+
+        const sankhyaList = [
+            { n: 1, s: "एकः / एका", e: "One" }, { n: 2, s: "द्वौ / द्वे", e: "Two" }, { n: 3, s: "त्रयः / तिस्रः", e: "Three" }, { n: 4, s: "चत्वारः / चतस्रः", e: "Four" }, { n: 5, s: "पञ्च", e: "Five" },
+            { n: 6, s: "षट्", e: "Six" }, { n: 7, s: "सप्त", e: "Seven" }, { n: 8, s: "अष्ट / अष्टौ", e: "Eight" }, { n: 9, s: "नव", e: "Nine" }, { n: 10, s: "दश", e: "Ten" },
+            { n: 11, s: "एकादश", e: "Eleven" }, { n: 12, s: "द्वादश", e: "Twelve" }, { n: 13, s: "त्रयोदश", e: "Thirteen" }, { n: 14, s: "चतुर्दश", e: "Fourteen" }, { n: 15, s: "पञ्चदश", e: "Fifteen" },
+            { n: 16, s: "षोडश", e: "Sixteen" }, { n: 17, s: "सप्तदश", e: "Seventeen" }, { n: 18, s: "अष्टादश", e: "Eighteen" }, { n: 19, s: "एकोनविंशतिः", e: "Nineteen" }, { n: 20, s: "विंशतिः", e: "Twenty" },
+            { n: 21, s: "एकविंशतिः", e: "Twenty-one" }, { n: 22, s: "द्वाविंशतिः", e: "Twenty-two" }, { n: 23, s: "त्रयोविंशतिः", e: "Twenty-three" }, { n: 24, s: "चतुर्विंशतिः", e: "Twenty-four" }, { n: 25, s: "पञ्चविंशतिः", e: "Twenty-five" },
+            { n: 26, s: "षड्विंशतिः", e: "Twenty-six" }, { n: 27, s: "सप्तविंशतिः", e: "Twenty-seven" }, { n: 28, s: "अष्टाविंशतिः", e: "Twenty-eight" }, { n: 29, s: "एकोनत्रिंशत्", e: "Twenty-nine" }, { n: 30, s: "त्रिंशत्", e: "Thirty" },
+            { n: 31, s: "एकत्रिंशत्", e: "Thirty-one" }, { n: 32, s: "द्वात्रिंशत्", e: "Thirty-two" }, { n: 33, s: "त्रयस्त्रिंशत्", e: "Thirty-three" }, { n: 34, s: "चतुस्त्रिंशत्", e: "Thirty-four" }, { n: 35, s: "पञ्चत्रिंशत्", e: "Thirty-five" }
+        ];
+
+        let score = 0;
+        let streak = 0;
+        let currentShabdKey = 'lata';
+        let currentDhatuKey = 'path';
+
+        // Navigation
+        function switchTab(tabId) {
+            ['shabd', 'dhatu', 'sankhya', 'literature', 'quiz'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).className = "flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-white text-slate-700 hover:bg-saffron-50";
+            });
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`btn-${tabId}`).className = "flex-1 min-w-[130px] py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 bg-saffron-600 text-white shadow-md";
+
+            if (tabId === 'shabd') renderShabdTable();
+            if (tabId === 'dhatu') renderDhatuTable();
+            if (tabId === 'sankhya') renderSankhyaGrid(sankhyaList);
+        }
+
+        // Shabd Roop Reference Table
+        function selectShabd(key) {
+            currentShabdKey = key;
+            document.getElementById('shabd-btn-lata').className = key === 'lata' ? "px-5 py-2.5 rounded-xl font-semibold text-sm bg-saffron-600 text-white shadow-sm transition-all" : "px-5 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all";
+            document.getElementById('shabd-btn-balak').className = key === 'balak' ? "px-5 py-2.5 rounded-xl font-semibold text-sm bg-saffron-600 text-white shadow-sm transition-all" : "px-5 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all";
+            renderShabdTable();
+        }
+
+        function renderShabdTable() {
+            const data = shabdData[currentShabdKey];
+            let html = `
+                <div class="mb-4 text-center">
+                    <h3 class="text-lg font-bold text-saffron-900 sanskrit-text">${data.name}</h3>
+                </div>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-saffron-100/70 text-saffron-900 font-semibold text-sm">
+                            <th class="p-3.5 rounded-l-xl">विभक्ति</th>
+                            <th class="p-3.5">एकवचनम्</th>
+                            <th class="p-3.5">द्विवचनम्</th>
+                            <th class="p-3.5 rounded-r-xl">बहुवचनम्</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+            `;
+            data.vibhaktis.forEach(row => {
+                html += `
+                    <tr class="hover:bg-saffron-50/40 transition-colors">
+                        <td class="p-3.5 font-bold text-saffron-800">${row.name}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.ek}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.dvi}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.bahu}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            document.getElementById('shabd-table-container').innerHTML = html;
+        }
+
+        // Dhatu Roop Reference Table
+        function selectDhatu(key) {
+            currentDhatuKey = key;
+            ['path', 'likh', 'kreed'].forEach(k => {
+                const btn = document.getElementById(`dhatu-btn-${k}`);
+                btn.className = k === key ? "px-4 py-2.5 rounded-xl font-semibold text-sm bg-saffron-600 text-white shadow-sm transition-all" : "px-4 py-2.5 rounded-xl font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-saffron-50 transition-all";
+            });
+            renderDhatuTable();
+        }
+
+        function renderDhatuTable() {
+            const data = dhatuData[currentDhatuKey];
+            let html = `
+                <div class="mb-4 text-center">
+                    <h3 class="text-lg font-bold text-saffron-900 sanskrit-text">${data.name}</h3>
+                </div>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-saffron-100/70 text-saffron-900 font-semibold text-sm">
+                            <th class="p-3.5 rounded-l-xl">पुरुषः</th>
+                            <th class="p-3.5">एकवचनम्</th>
+                            <th class="p-3.5">द्विवचनम्</th>
+                            <th class="p-3.5 rounded-r-xl">बहुवचनम्</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+            `;
+            data.purushas.forEach(row => {
+                html += `
+                    <tr class="hover:bg-saffron-50/40 transition-colors">
+                        <td class="p-3.5 font-bold text-saffron-800">${row.name}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.ek}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.dvi}</td>
+                        <td class="p-3.5 sanskrit-text text-base font-medium text-slate-800">${row.bahu}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            document.getElementById('dhatu-table-container').innerHTML = html;
+        }
+
+        // Sankhya Grid
+        function renderSankhyaGrid(list) {
+            let html = '';
+            list.forEach(item => {
+                html += `
+                    <div class="bg-gradient-to-br from-white to-saffron-50/40 p-4 rounded-2xl border border-saffron-100 shadow-sm text-center">
+                        <div class="text-2xl font-black text-saffron-700 mb-2">${item.n}</div>
+                        <div class="sanskrit-text text-base font-bold text-slate-800">${item.s}</div>
+                        <div class="text-xs text-slate-400 mt-0.5">${item.e}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('sankhya-grid').innerHTML = html;
+        }
+
+        function filterSankhya() {
+            const query = document.getElementById('sankhya-search').value.toLowerCase().trim();
+            const filtered = sankhyaList.filter(item => item.n.toString().includes(query) || item.s.toLowerCase().includes(query));
+            renderSankhyaGrid(filtered);
+        }
+
+        // ================= TABLE FILL-UPS QUIZ LOGIC =================
+        let activeTableType = 'lata'; // lata, balak, dhatu
+        let tableQuizData = [];
+
+        function startTableQuiz(type) {
+            activeTableType = type;
+            document.getElementById('quiz-menu-screen').classList.add('hidden');
+            document.getElementById('quiz-active-screen').classList.remove('hidden');
+            document.getElementById('table-quiz-feedback').innerText = '';
+
+            let titleName = "लता शब्द रूप - सारणी पूर्ति";
+            if (type === 'balak') titleName = "बालक शब्द रूप - सारणी पूर्ति";
+            if (type === 'dhatu') titleName = "धातु रूप (लोट् लकार) - सारणी पूर्ति";
+            document.getElementById('table-quiz-title').innerText = titleName;
+
+            renderTableQuizGrid();
+        }
+
+        function exitTableQuiz() {
+            document.getElementById('quiz-active-screen').classList.add('hidden');
+            document.getElementById('quiz-menu-screen').classList.remove('hidden');
+        }
+
+        function renderTableQuizGrid() {
+            let html = `<table class="w-full text-left border-collapse"><thead><tr class="bg-saffron-100/70 text-saffron-900 font-semibold text-sm"><th class="p-3 rounded-l-xl">श्रेणी / विभक्ति</th><th class="p-3">एकवचनम्</th><th class="p-3">द्विवचनम्</th><th class="p-3 rounded-r-xl">बहुवचनम्</th></tr></thead><tbody class="divide-y divide-slate-100 text-sm">`;
+
+            tableQuizData = []; // store answers for checking
+
+            if (activeTableType === 'lata' || activeTableType === 'balak') {
+                const data = shabdData[activeTableType];
+                data.vibhaktis.forEach((row, rIdx) => {
+                    html += `<tr class="hover:bg-saffron-50/40"><td class="p-3 font-bold text-saffron-800">${row.name}</td>`;
+                    ['ek', 'dvi', 'bahu'].forEach((col, cIdx) => {
+                        // Randomly hide ~40% of cells for blanks
+                        const isBlank = (rIdx + cIdx) % 3 === 0;
+                        const correctVal = row[col];
+                        if (isBlank) {
+                            tableQuizData.push({ r: rIdx, c: cIdx, val: correctVal, id: `input-${rIdx}-${cIdx}` });
+                            html += `<td class="p-3"><input type="text" id="input-${rIdx}-${cIdx}" class="w-28 px-3 py-1.5 border border-amber-300 bg-amber-50/50 rounded-lg text-sm sanskrit-text focus:outline-none focus:ring-2 focus:ring-saffron-500 font-bold text-saffron-900" placeholder="भरें..."></td>`;
+                        } else {
+                            html += `<td class="p-3 sanskrit-text text-base font-medium text-slate-800">${correctVal}</td>`;
+                        }
+                    });
+                    html += `</tr>`;
+                });
+            } else if (activeTableType === 'dhatu') {
+                // Use path dhatu for quiz or randomly pick
+                const data = dhatuData[currentDhatuKey];
+                document.getElementById('table-quiz-title').innerText = `${data.name} - सारणी पूर्ति`;
+                data.purushas.forEach((row, rIdx) => {
+                    html += `<tr class="hover:bg-saffron-50/40"><td class="p-3 font-bold text-saffron-800">${row.name}</td>`;
+                    ['ek', 'dvi', 'bahu'].forEach((col, cIdx) => {
+                        const isBlank = (rIdx + cIdx) % 2 === 0;
+                        const correctVal = row[col];
+                        if (isBlank) {
+                            tableQuizData.push({ r: rIdx, c: cIdx, val: correctVal, id: `input-${rIdx}-${cIdx}` });
+                            html += `<td class="p-3"><input type="text" id="input-${rIdx}-${cIdx}" class="w-28 px-3 py-1.5 border border-amber-300 bg-amber-50/50 rounded-lg text-sm sanskrit-text focus:outline-none focus:ring-2 focus:ring-saffron-500 font-bold text-saffron-900" placeholder="भरें..."></td>`;
+                        } else {
+                            html += `<td class="p-3 sanskrit-text text-base font-medium text-slate-800">${correctVal}</td>`;
+                        }
+                    });
+                    html += `</tr>`;
+                });
+            }
+
+            html += `</tbody></table>`;
+            document.getElementById('table-quiz-container').innerHTML = html;
+        }
+
+        function evaluateTableQuiz() {
+            let correctCount = 0;
+            let totalBlanks = tableQuizData.length;
+
+            tableQuizData.forEach(item => {
+                const inputEl = document.getElementById(item.id);
+                const userVal = inputEl.value.trim();
+                if (userVal === item.val) {
+                    inputEl.className = "w-28 px-3 py-1.5 border border-emerald-400 bg-emerald-50 rounded-lg text-sm sanskrit-text font-bold text-emerald-900";
+                    correctCount++;
+                } else {
+                    inputEl.className = "w-28 px-3 py-1.5 border border-rose-400 bg-rose-50 rounded-lg text-sm sanskrit-text font-bold text-rose-900";
+                    // show correct tooltip or placeholder
+                    inputEl.title = `सही उत्तर: ${item.val}`;
+                }
+            });
+
+            const feedback = document.getElementById('table-quiz-feedback');
+            if (correctCount === totalBlanks) {
+                feedback.className = "text-sm font-semibold text-emerald-700";
+                feedback.innerText = `🌟 अति उत्तम! आपके सभी ${totalBlanks} रिक्त स्थान बिल्कुल सही हैं!`;
+                score += 25;
+                streak++;
+            } else {
+                feedback.className = "text-sm font-semibold text-amber-700";
+                feedback.innerText = `आपने ${totalBlanks} में से ${correctCount} सही भरे। लाल बॉक्स वाले उत्तरों की जाँच करें।`;
+                streak = 0;
+            }
+            updateScoreboard();
+        }
+
+        function updateScoreboard() {
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('streak-val').innerText = streak;
+        }
+
+        window.onload = function() {
+            renderShabdTable();
+        };
+    </script>
+</body>
+</html>
